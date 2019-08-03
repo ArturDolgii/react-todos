@@ -50,6 +50,8 @@ class App extends React.Component {
     }
 
     render() {
+        const itemsLeft = this.state.todosList.filter(todo => !todo.completed).length;
+
         return (
             <main role="main">
                 <section className="jumbotron text-center">
@@ -61,7 +63,7 @@ class App extends React.Component {
                                 <TodosList todosList={this.state.todosList}
                                            deleteTodo={id => this.deleteTodo(id)}
                                            toggleCompleted={id => this.toggleCompleted(id)} />
-                                <TodosFooter />
+                                <TodosFooter itemsLeft={itemsLeft} />
                             </div>
                         </div>
                     </div>

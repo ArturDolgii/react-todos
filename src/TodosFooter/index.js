@@ -5,7 +5,9 @@ class TodosFooter extends React.Component {
         return (
             <ul className="list-inline">
                 <li className="list-inline-item float-left">
-                    <span className="btn">2 items left</span>
+                    <span className="btn">
+                        {this.props.itemsLeft} {this.props.itemsLeft === 1 ? "item left" : "items left"}
+                    </span>
                 </li>
                 <li className="list-inline-item">
                     <ul className="list-inline">
