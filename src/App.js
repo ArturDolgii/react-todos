@@ -15,8 +15,20 @@ class App extends React.Component {
 
     addTodo(todo) {
         this.setState({
-            todosList: this.state.todosList.slice().concat(todo)
-        })
+            todosList: this.state.todosList.slice().concat(Object.assign(todo, { id: this.getTodosNextId() }))
+        });
+    }
+
+    getTodosNextId() {
+        let id;
+
+        if (!this.state.todosList.length) {
+            id = -1;
+        } else {
+            id = this.state.todosList[ this.state.todosList.length - 1 ].id;
+        }
+
+        return ++id;
     }
 
     render() {
