@@ -5,7 +5,7 @@ import "./index.css";
 class TodosFooter extends React.Component {
     render() {
         return (
-            <ul className="list-inline">
+            <ul className={"list-inline" + (this.props.todosCount === 0 ? " d-none" : "")}>
                 <li className="list-inline-item float-left">
                     <span className="btn">
                         {this.props.itemsLeft} {this.props.itemsLeft === 1 ? "item left" : "items left"}
@@ -31,7 +31,7 @@ class TodosFooter extends React.Component {
                             <button type="button"
                                     className={"btn btn-link" + (this.props.activeFilter === "COMPLETED" ? " active" : "")}
                                     onClick={() => this.props.onFilterChanged("COMPLETED")}>
-                                    Completed
+                                Completed
                             </button>
                         </li>
                     </ul>
@@ -39,7 +39,8 @@ class TodosFooter extends React.Component {
                 <li className="list-inline-item float-right">
                     <button type="button"
                             className="btn btn-link"
-                            onClick={() => this.props.clearCompleted()}>Clear completed
+                            onClick={() => this.props.clearCompleted()}>
+                        Clear completed
                     </button>
                 </li>
             </ul>

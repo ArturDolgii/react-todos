@@ -97,7 +97,8 @@ class App extends React.Component {
                                 <TodosFooter itemsLeft={itemsLeft}
                                              clearCompleted={() => this.clearCompleted()}
                                              activeFilter={this.state.activeFilter}
-                                             onFilterChanged={filter => this.onFilterChanged(filter)} />
+                                             onFilterChanged={filter => this.onFilterChanged(filter)}
+                                             todosCount={this.state.todosList.length} />
                             </div>
                         </div>
                     </div>
