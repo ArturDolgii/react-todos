@@ -30,7 +30,8 @@ class TodosFooter extends React.Component {
                 </li>
                 <li className="list-inline-item float-right">
                     <button type="button"
-                            className="btn btn-link">Clear completed
+                            className="btn btn-link"
+                            onClick={() => this.props.clearCompleted()}>Clear completed
                     </button>
                 </li>
             </ul>

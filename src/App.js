@@ -49,6 +49,12 @@ class App extends React.Component {
         });
     }
 
+    clearCompleted() {
+        this.setState({
+            todosList: this.state.todosList.slice().filter(todo => !todo.completed)
+        });
+    }
+
     render() {
         const itemsLeft = this.state.todosList.filter(todo => !todo.completed).length;
 
@@ -63,7 +69,8 @@ class App extends React.Component {
                                 <TodosList todosList={this.state.todosList}
                                            deleteTodo={id => this.deleteTodo(id)}
                                            toggleCompleted={id => this.toggleCompleted(id)} />
-                                <TodosFooter itemsLeft={itemsLeft} />
+                                <TodosFooter itemsLeft={itemsLeft}
+                                             clearCompleted={() => this.clearCompleted()} />
                             </div>
                         </div>
                     </div>

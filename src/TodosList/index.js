@@ -21,6 +21,7 @@ class TodosList extends React.Component {
                                 <label className="form-check-label">
                                     <input type="checkbox"
                                            className="form-check-input"
+                                           defaultChecked={todo.completed}
                                            onClick={() => this.toggleCompleted(todo.id)} />
                                     <span className={todo.completed ? "completed" : ""}>
                                         {todo.text}
