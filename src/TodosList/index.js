@@ -15,7 +15,8 @@ class TodosList extends React.Component {
         return (
             <ul className="list-group pt-md-3">
                 {this.props.todosList.map(todo => (
-                    <li className="list-group-item" key={todo.id}>
+                    <li className={"list-group-item" + (todo.hidden ? " d-none" : "")}
+                        key={todo.id}>
                         <div className="form-check text-left">
                             <div className="float-left">
                                 <label className="form-check-label">

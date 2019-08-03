@@ -24,7 +24,7 @@ class TodosInput extends React.Component {
             id: -1,
             completed: false,
             text,
-            hidden: false
+            hidden: null
         };
 
         this.props.addTodo(todo);
@@ -37,7 +37,7 @@ class TodosInput extends React.Component {
             <input type="text"
                    className="form-control"
                    value={this.state.text}
-                   onChange={e => this.setState({ text: e.target.value})}
+                   onChange={e => this.setState({ text: e.target.value })}
                    onKeyUp={e => this.handleKeyUp(e)}
                    placeholder="What needs to be done?" />
         );

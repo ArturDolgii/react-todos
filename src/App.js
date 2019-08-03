@@ -9,13 +9,17 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            todosList: []
+            todosList: [],
+            activeFilter: "ALL"
         };
     }
 
     addTodo(todo) {
         this.setState({
-            todosList: this.state.todosList.slice().concat(Object.assign(todo, { id: this.getTodosNextId() }))
+            todosList: this.state.todosList.slice().concat(Object.assign(todo, {
+                id: this.getTodosNextId(),
+                hidden: this.state.activeFilter === "COMPLETED"
+            }))
         });
     }
 
@@ -55,6 +59,27 @@ class App extends React.Component {
         });
     }
 
+    onFilterChanged(activeFilter) {
+        this.setState({
+            todosList: this.getTodosByFilter(activeFilter),
+            activeFilter
+        });
+    }
+
+    getTodosByFilter(filter) {
+        return this.state.todosList.slice().map(todo => {
+            let hiddenMap = {
+                "ALL": false,
+                "ACTIVE": todo.completed,
+                "COMPLETED": !todo.completed
+            };
+
+            todo.hidden = hiddenMap[ filter ];
+
+            return todo;
+        });
+    }
+
     render() {
         const itemsLeft = this.state.todosList.filter(todo => !todo.completed).length;
 
@@ -65,12 +90,14 @@ class App extends React.Component {
                         <h1 className="jumbotron-heading">TODOS</h1>
                         <div className="row justify-content-center">
                             <div className="col-md-6">
-                                <TodosInput addTodo={todo => this.addTodo(todo)}/>
+                                <TodosInput addTodo={todo => this.addTodo(todo)} />
                                 <TodosList todosList={this.state.todosList}
                                            deleteTodo={id => this.deleteTodo(id)}
                                            toggleCompleted={id => this.toggleCompleted(id)} />
                                 <TodosFooter itemsLeft={itemsLeft}
-                                             clearCompleted={() => this.clearCompleted()} />
+                                             clearCompleted={() => this.clearCompleted()}
+                                             activeFilter={this.state.activeFilter}
+                                             onFilterChanged={filter => this.onFilterChanged(filter)} />
                             </div>
                         </div>
                     </div>

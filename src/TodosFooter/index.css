@@ -1,0 +1,9 @@
+.active {
+    color: dimgray;
+}
+
+.active:active,
+.active:focus,
+.active:hover {
+    text-decoration: none;
+}

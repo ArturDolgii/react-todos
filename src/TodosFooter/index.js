@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./index.css";
+
 class TodosFooter extends React.Component {
     render() {
         return (
@@ -13,17 +15,23 @@ class TodosFooter extends React.Component {
                     <ul className="list-inline">
                         <li className="list-inline-item">
                             <button type="button"
-                                    className="btn btn-link">All
+                                    className={"btn btn-link" + (this.props.activeFilter === "ALL" ? " active" : "")}
+                                    onClick={() => this.props.onFilterChanged("ALL")}>
+                                All
                             </button>
                         </li>
                         <li className="list-inline-item">
                             <button type="button"
-                                    className="btn btn-link">Active
+                                    className={"btn btn-link" + (this.props.activeFilter === "ACTIVE" ? " active" : "")}
+                                    onClick={() => this.props.onFilterChanged("ACTIVE")}>
+                                Active
                             </button>
                         </li>
                         <li className="list-inline-item">
                             <button type="button"
-                                    className="btn btn-link">Completed
+                                    className={"btn btn-link" + (this.props.activeFilter === "COMPLETED" ? " active" : "")}
+                                    onClick={() => this.props.onFilterChanged("COMPLETED")}>
+                                    Completed
                             </button>
                         </li>
                     </ul>
