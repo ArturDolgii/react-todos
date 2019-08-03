@@ -37,6 +37,18 @@ class App extends React.Component {
         });
     }
 
+    toggleCompleted(id) {
+        this.setState({
+            todosList: this.state.todosList.slice().map(todo => {
+                if (todo.id === id) {
+                    todo.completed = !todo.completed;
+                }
+
+                return todo;
+            })
+        });
+    }
+
     render() {
         return (
             <main role="main">
@@ -45,9 +57,10 @@ class App extends React.Component {
                         <h1 className="jumbotron-heading">TODOS</h1>
                         <div className="row justify-content-center">
                             <div className="col-md-6">
-                                <TodosInput addTodo={todo => this.addTodo(todo)} />
+                                <TodosInput addTodo={todo => this.addTodo(todo)}/>
                                 <TodosList todosList={this.state.todosList}
-                                           deleteTodo={id => this.deleteTodo(id)} />
+                                           deleteTodo={id => this.deleteTodo(id)}
+                                           toggleCompleted={id => this.toggleCompleted(id)} />
                                 <TodosFooter />
                             </div>
                         </div>

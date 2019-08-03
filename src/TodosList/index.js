@@ -1,8 +1,14 @@
 import React from "react";
 
+import "./index.css";
+
 class TodosList extends React.Component {
     deleteTodo(id) {
         this.props.deleteTodo(id);
+    }
+
+    toggleCompleted(id) {
+        this.props.toggleCompleted(id);
     }
 
     render() {
@@ -13,8 +19,10 @@ class TodosList extends React.Component {
                         <div className="form-check text-left">
                             <div className="float-left">
                                 <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" />
-                                    <span>
+                                    <input type="checkbox"
+                                           className="form-check-input"
+                                           onClick={() => this.toggleCompleted(todo.id)} />
+                                    <span className={todo.completed ? "completed" : ""}>
                                         {todo.text}
                                     </span>
                                 </label>
