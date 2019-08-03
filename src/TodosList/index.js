@@ -1,6 +1,10 @@
 import React from "react";
 
 class TodosList extends React.Component {
+    deleteTodo(id) {
+        this.props.deleteTodo(id);
+    }
+
     render() {
         return (
             <ul className="list-group pt-md-3">
@@ -17,7 +21,8 @@ class TodosList extends React.Component {
                             </div>
                             <div className="float-right">
                                 <button type="button"
-                                        className="btn btn-link">
+                                        className="btn btn-link"
+                                        onClick={() => this.deleteTodo(todo.id)}>
                                     X
                                 </button>
                             </div>

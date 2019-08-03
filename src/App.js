@@ -31,6 +31,12 @@ class App extends React.Component {
         return ++id;
     }
 
+    deleteTodo(id) {
+        this.setState({
+            todosList: this.state.todosList.slice().filter(todo => todo.id !== id)
+        });
+    }
+
     render() {
         return (
             <main role="main">
@@ -40,7 +46,8 @@ class App extends React.Component {
                         <div className="row justify-content-center">
                             <div className="col-md-6">
                                 <TodosInput addTodo={todo => this.addTodo(todo)} />
-                                <TodosList todosList={this.state.todosList} />
+                                <TodosList todosList={this.state.todosList}
+                                           deleteTodo={id => this.deleteTodo(id)} />
                                 <TodosFooter />
                             </div>
                         </div>
