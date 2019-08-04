@@ -1,4 +1,5 @@
 import React from "react";
+import TodosInputJsx from "./jsx";
 
 class TodosInput extends React.Component {
     constructor(props) {
@@ -33,14 +34,7 @@ class TodosInput extends React.Component {
     }
 
     render() {
-        return (
-            <input type="text"
-                   className="form-control"
-                   value={this.state.text}
-                   onChange={e => this.setState({ text: e.target.value })}
-                   onKeyUp={e => this.handleKeyUp(e)}
-                   placeholder="What needs to be done?" />
-        );
+        return TodosInputJsx(this);
     }
 }
 
