@@ -14,12 +14,26 @@ class App extends React.Component {
         };
     }
 
+    componentDidMount() {
+        this.fetchTodos().then(todosList => {
+            this.setState({ todosList });
+        });
+    }
+
     addTodo(todo) {
-        this.setState({
-            todosList: this.state.todosList.slice().concat(Object.assign(todo, {
-                id: this.getTodosNextId(),
-                hidden: this.state.activeFilter === "COMPLETED"
-            }))
+        const newTodo = Object.assign(todo, {
+            id: this.getTodosNextId(),
+            hidden: this.state.activeFilter === "COMPLETED"
+        });
+
+        fetch("/todos", {
+            method: "PUT",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(newTodo)
+        }).then(() => {
+            this.setState({
+                todosList: this.state.todosList.slice().concat(newTodo)
+            });
         });
     }
 
@@ -36,48 +50,49 @@ class App extends React.Component {
     }
 
     deleteTodo(id) {
-        this.setState({
-            todosList: this.state.todosList.slice().filter(todo => todo.id !== id)
+        fetch(`/todos/${id}`, { method: "DELETE" }).then(() => {
+            this.setState({
+                todosList: this.state.todosList.slice().filter(todo => todo.id !== id)
+            });
         });
     }
 
-    toggleCompleted(id) {
-        this.setState({
-            todosList: this.state.todosList.slice().map(todo => {
-                if (todo.id === id) {
-                    todo.completed = !todo.completed;
-                }
+    toggleCompleted(todo) {
+        fetch(`/todos/${todo.id}`, {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({ completed: !todo.completed })
+        }).then(() => {
+            this.setState({
+                todosList: this.state.todosList.slice().map(_todo => {
+                    if (_todo.id === todo.id) {
+                        _todo.completed = !_todo.completed;
+                    }
 
-                return todo;
-            })
+                    return _todo;
+                })
+            });
         });
     }
 
     clearCompleted() {
-        this.setState({
-            todosList: this.state.todosList.slice().filter(todo => !todo.completed)
+        fetch(`/todos?filter=COMPLETED`, { method: "DELETE" }).then(() => {
+            this.setState({
+                todosList: this.state.todosList.slice().filter(todo => !todo.completed)
+            });
         });
     }
 
     onFilterChanged(activeFilter) {
-        this.setState({
-            todosList: this.getTodosByFilter(activeFilter),
-            activeFilter
+        this.fetchTodos(activeFilter).then(todosList => {
+            this.setState({ todosList, activeFilter });
         });
     }
 
-    getTodosByFilter(filter) {
-        return this.state.todosList.slice().map(todo => {
-            let hiddenMap = {
-                "ALL": false,
-                "ACTIVE": todo.completed,
-                "COMPLETED": !todo.completed
-            };
+    async fetchTodos(filter = "ALL") {
+        let response = await fetch(`/todos?filter=${filter}`);
 
-            todo.hidden = hiddenMap[ filter ];
-
-            return todo;
-        });
+        return response.json();
     }
 
     render() {
