@@ -1,20 +1,28 @@
 import React from "react";
+import {connect} from "react-redux";
+import {DELETE_TODO, TOGGLE_COMPLETED} from "../redux/actionTypes";
+import {getActiveFilter, getTodosList} from "../redux/selectors";
+
 import TodosListJsx from "./jsx";
 
 import "./index.css";
 
 class TodosList extends React.Component {
-    deleteTodo(id) {
-        this.props.deleteTodo(id);
-    }
-
-    toggleCompleted(id) {
-        this.props.toggleCompleted(id);
-    }
-
     render() {
         return TodosListJsx(this);
     }
 }
 
-export default TodosList;
+export default connect(state => ({
+    todosList: getTodosList(state),
+    activeFilter: getActiveFilter(state)
+}), {
+    toggleCompleted: id => ({
+        type: TOGGLE_COMPLETED,
+        payload: { id }
+    }),
+    deleteTodo: id => ({
+        type: DELETE_TODO,
+        payload: { id }
+    })
+})(TodosList);

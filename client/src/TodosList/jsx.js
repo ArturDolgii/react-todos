@@ -11,7 +11,7 @@ const TodosListJsx = (_this) => (
                             <input type="checkbox"
                                    className="form-check-input"
                                    defaultChecked={todo.completed}
-                                   onClick={() => _this.toggleCompleted(todo.id)} />
+                                   onClick={() => _this.props.toggleCompleted(todo.id)} />
                             <span className={todo.completed ? "completed" : ""}>
                                 {todo.text}
                             </span>
@@ -20,7 +20,7 @@ const TodosListJsx = (_this) => (
                     <div className="float-right">
                         <button type="button"
                                 className="btn btn-link"
-                                onClick={() => _this.deleteTodo(todo.id)}>
+                                onClick={() => _this.props.deleteTodo(todo.id)}>
                             X
                         </button>
                     </div>

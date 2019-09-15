@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import {ADD_TODO} from "../redux/actionTypes";
 import TodosInputJsx from "./jsx";
 
 class TodosInput extends React.Component {
@@ -21,14 +23,7 @@ class TodosInput extends React.Component {
             return;
         }
 
-        const todo = {
-            id: -1,
-            completed: false,
-            text,
-            hidden: null
-        };
-
-        this.props.addTodo(todo);
+        this.props.addTodo(text);
 
         this.setState({ text: "" });
     }
@@ -38,4 +33,19 @@ class TodosInput extends React.Component {
     }
 }
 
-export default TodosInput;
+let nextTodoId = 0;
+
+export default connect(
+    null,
+    {
+        addTodo: text => ({
+            type: ADD_TODO,
+            payload: {
+                id: ++nextTodoId,
+                completed: false,
+                text,
+                hidden: null
+            }
+        })
+    }
+)(TodosInput);
