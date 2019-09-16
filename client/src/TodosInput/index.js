@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {ADD_TODO} from "../redux/actionTypes";
+import {ADD_TODO_REQUESTED} from "../redux/actionTypes";
 import TodosInputJsx from "./jsx";
 
 class TodosInput extends React.Component {
@@ -33,19 +33,12 @@ class TodosInput extends React.Component {
     }
 }
 
-let nextTodoId = 0;
-
 export default connect(
     null,
     {
         addTodo: text => ({
-            type: ADD_TODO,
-            payload: {
-                id: ++nextTodoId,
-                completed: false,
-                text,
-                hidden: null
-            }
+            type: ADD_TODO_REQUESTED,
+            payload: { text }
         })
     }
 )(TodosInput);

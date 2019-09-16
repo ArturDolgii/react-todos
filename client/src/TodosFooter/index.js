@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {CLEAR_COMPLETED, ON_FILTER_CHANGED} from "../redux/actionTypes";
+import {CLEAR_COMPLETED_REQUESTED, TODOS_FETCH_REQUESTED} from "../redux/actionTypes";
 import {getActiveFilter, getItemsLeft, getTodosCount} from "../redux/selectors";
 
 import TodosFooterJsx from "./jsx";
@@ -19,10 +19,10 @@ export default connect(state => ({
     todosCount: getTodosCount(state)
 }), {
     clearCompleted: () => ({
-        type: CLEAR_COMPLETED
+        type: CLEAR_COMPLETED_REQUESTED
     }),
     onFilterChanged: (filter) => ({
-        type: ON_FILTER_CHANGED,
+        type: TODOS_FETCH_REQUESTED,
         payload: { filter }
     })
 })(TodosFooter);

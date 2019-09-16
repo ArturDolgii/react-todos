@@ -11,7 +11,7 @@ const TodosListJsx = (_this) => (
                             <input type="checkbox"
                                    className="form-check-input"
                                    defaultChecked={todo.completed}
-                                   onClick={() => _this.props.toggleCompleted(todo.id)} />
+                                   onClick={() => _this.props.toggleCompleted(todo)} />
                             <span className={todo.completed ? "completed" : ""}>
                                 {todo.text}
                             </span>
