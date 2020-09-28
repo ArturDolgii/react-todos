@@ -87,7 +87,7 @@ class App extends React.Component {
             <main role="main">
                 <section className="jumbotron text-center">
                     <div className="container">
-                        <h1 className="jumbotron-heading">TODOS!!!111</h1>
+                        <h1 className="jumbotron-heading">TODOS</h1>
                         <div className="row justify-content-center">
                             <div className="col-md-6">
                                 <TodosInput addTodo={todo => this.addTodo(todo)} />
